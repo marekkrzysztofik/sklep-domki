@@ -1,35 +1,59 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.logo {
+  width: 100px;
 }
-
-a,
-.green {
+body {
+  background-color: #e4dccf;
+  font-family: 'Poppins', sans-serif;
+}
+.menu-txt {
+  font-size: 20px;
+  font-weight: 900;
+  color: #000000;
+}
+.no-decoration {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
 }
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.bg-white {
+  background-color: white;
 }
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.br-radius-20 {
+  border-radius: 20px;
+}
+.pad-20 {
+  padding: 20px;
+}
+.m-left-20 {
+  margin-left: 20px;
+}
+.m-right-20 {
+  margin-right: 20px !important;
+}
+.datatable {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px !important;
+  border: 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.btn-icon {
+  border: 1px solid #e0e0e0;
+  background: none;
+  width: 29px;
+  height: 29px;
+  border-radius: 4px;
+  color: #6a727a;
+  cursor: pointer;
+}
+.btn-icon-success:hover {
+  background: rgb(47, 214, 111);
+  color: white;
+}
+.btn-icon-danger:hover {
+  background: crimson;
+  color: white;
+}
+.p-button {
+  background-color: #19a7ce !important;
+  color: #000000 !important;
 }
