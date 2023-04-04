@@ -4,7 +4,7 @@ export const useStore = defineStore('store', {
   state: () => {
     return {
       products: [],
-      type: ['na ziemię', 'na drzewo'],
+      type: ['na ziemi', 'na drzewie'],
       animals: ['pies'],
       searchTerm: '',
     }

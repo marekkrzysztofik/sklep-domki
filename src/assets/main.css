@@ -29,6 +29,15 @@ body {
 .m-right-20 {
   margin-right: 20px !important;
 }
+.m-30-auto {
+  margin: 20px auto;
+}
+.width-70 {
+  width: 70px;
+}
+.width-120 {
+  width: 120px;
+}
 .datatable {
   font-family: 'Poppins', sans-serif !important;
   font-size: 18px !important;
