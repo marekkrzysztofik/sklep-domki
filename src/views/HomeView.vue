@@ -3,14 +3,14 @@
   <Toast />
   <div class="flex justify-content-center m-3">
     <Button
-    v-if="!isEuro"
+      v-if="!isEuro"
       @click="changeToEu"
       class="m-right-20"
       label="Zmień na €"
       icon="pi pi-calculator"
     />
     <Button
-    v-if="isEuro"
+      v-if="isEuro"
       @click="changeToPln"
       class="m-right-20"
       label="Zmień na PLN"
@@ -28,8 +28,10 @@
   </div>
   <div class="flex justify-content-center">
     <DataTable
-      v-if="!searchUsed"
-      :value="store.products"
+      :value="searchUsed ? store.filteredProducts : store.products"
+      editMode="row"
+      v-model:editingRows="editingRows"
+      @row-edit-save="onRowEditSave"
       responsiveLayout="scroll"
       class="w-max datatable"
     >
@@ -41,15 +43,18 @@
         :header="column.header"
         sortable
       ></Column>
-      <Column
-        :field="isEuro ? 'priceEU' : 'price'"
-        header="Cena"
-        sortable
+      <Column :field="isEuro ? 'priceEU' : 'price'" header="Cena" sortable
+        ><template #editor="{ data, field }">
+          <InputText v-model="data[field]" class="width-70" /> </template
       ></Column>
       <Column header="Waluta"
         ><template #body> {{ isEuro ? '€' : 'zł' }} </template></Column
       >
-      <Column header="Actions">
+      <Column field="quantity" header="Ilość"
+        ><template #editor="{ data, field }">
+          <InputText v-model="data[field]" class="width-70" /> </template
+      ></Column>
+      <Column header="Usuń">
         <template #body="event">
           <div>
             <button
@@ -61,36 +66,7 @@
           </div>
         </template>
       </Column>
-    </DataTable>
-    <DataTable
-      v-if="searchUsed"
-      :value="store.filteredProducts"
-      responsiveLayout="scroll"
-      class="w-max datatable"
-    >
-      <template #header>Products </template>
-      <Column
-        v-for="column in productColumns"
-        :key="column.field"
-        :field="column.field"
-        :header="column.header"
-      ></Column>
-      <Column :field="isEuro ? 'priceEU' : 'price'" header="Cena"></Column>
-      <Column header="Waluta"
-        ><template #body> {{ isEuro ? '€' : 'zł' }} </template></Column
-      >
-      <Column header="Actions">
-        <template #body="event">
-          <div>
-            <button
-              @click="confirmDialog(event.data)"
-              class="btn-icon btn-icon-danger"
-            >
-              <i class="pi pi-ban"></i>
-            </button>
-          </div>
-        </template>
-      </Column>
+      <Column :rowEditor="true" header="Edytuj" />
     </DataTable>
   </div>
 </template>
@@ -107,7 +83,13 @@ const searchUsed = ref(false)
 const toast = useToast()
 const confirm = useConfirm()
 const isEuro = ref(false)
+const editingRows = ref([])
 
+const onRowEditSave = (event) => {
+  let { newData, index } = event
+  newData.priceEU = (newData.price / 4.75).toFixed(2)
+  store.products[index] = newData
+}
 const changeToPln = () => {
   isEuro.value = false
 }

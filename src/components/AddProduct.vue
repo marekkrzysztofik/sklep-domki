@@ -2,14 +2,19 @@
   <h1 class="m-3">Dodaj produkt</h1>
   <div class="flex justify-content-center">
     <form @submit.prevent="submit">
-      <div class="m-3 pad-20 br-radius-20 bg-white form-grid">
+      <div class="m-3 pad-20 br-radius-20 bg-white flex flex-column">
         <div>
           <InputText
-            required
             v-model="productForm.name"
             type="text"
             placeholder="Nazwa"
-            class="m-3"
+            class="w-min m-3"
+          />
+          <Dropdown
+            v-model="productForm.type"
+            :options="store.type"
+            placeholder="Rodzaj"
+            class="w-min m-3"
           />
         </div>
         <div>
@@ -17,28 +22,21 @@
             v-model="productForm.price"
             type="number"
             placeholder="Cena"
-            class="m-3"
+            class="w-min m-3"
+          />
+          <Dropdown
+            v-model="productForm.animal"
+            :options="store.animals"
+            placeholder="Zwierzę"
+            class="w-min m-3"
           />
         </div>
-        <Dropdown
-          v-model="productForm.type"
-          :options="store.type"
-          placeholder="Rodzaj"
-          class="w-min m-3"
-        />
-        <Dropdown
-          v-model="productForm.animal"
-          :options="store.animals"
-          placeholder="Zwierzę"
-          class="w-min m-3"
-        />
-        <Textarea name="description" class="m-3" placeholder="Opis" rows="6" />
-        <div class="m-left-20">
+        <div class="m-30-auto">
           <Button
             @click="submit"
             :disabled="!isFormFilled"
             label="Save"
-            class="m-3"
+            class="width-120"
           />
         </div>
       </div>
@@ -56,7 +54,7 @@ const productForm = reactive({
   name: '',
   type: '',
   animal: '',
-  price: 0,
+  price: '',
 })
 
 const isFormFilled = computed(() => {
@@ -73,14 +71,3 @@ const submit = () => {
   router.push('/')
 }
 </script>
-<style scoped>
-.form-grid {
-  margin: auto;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 350px);
-  grid-template-rows: 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 15px;
-}
-</style>
