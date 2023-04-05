@@ -33,9 +33,19 @@
         </div>
         <div class="flex align-items-center">
           <div class="quantity-box flex br-radius-20">
-            <i class="pi pi-plus pad-10"></i>
-            <h5 class="m-0 pad-10">0</h5>
-            <i class="pi pi-minus pad-10"></i>
+            <button
+              @click="add(store.basket.indexOf(product))"
+              class="btn-icon"
+            >
+              <i class="pi pi-plus"></i>
+            </button>
+            <h5 class="m-0 pad-10">{{ product.quantity }}</h5>
+            <button
+              @click="subtract(store.basket.indexOf(product))"
+              class="btn-icon"
+            >
+              <i class="pi pi-minus"></i>
+            </button>
           </div>
           <button
             @click="deleteProduct(store.basket.indexOf(product))"
@@ -74,5 +84,17 @@ const changeToEu = () => {
 }
 const deleteProduct = (id) => {
   store.basket.splice(id, 1)
+}
+const add = (id) => {
+  let quantity = parseInt(store.basket[id].quantity)
+  quantity += 1
+  store.basket[id].quantity = quantity
+}
+const subtract = (id) => {
+  let quantity = parseInt(store.basket[id].quantity)
+  if (quantity > 1) {
+    quantity -= 1
+  }
+  store.basket[id].quantity = quantity
 }
 </script>

@@ -6,9 +6,9 @@ body {
   background-color: #e4dccf;
   font-family: 'Poppins', sans-serif;
 }
-button {
+button  {
   cursor: pointer;
-  border: 1px solid #e0e0e0;
+  border: none;
 }
 .menu-txt {
   font-size: 20px;
@@ -26,6 +26,9 @@ button {
 }
 .br-radius-20 {
   border-radius: 20px;
+}
+.pad-5 {
+  padding: 5px;
 }
 .pad-10 {
   padding: 10px;
@@ -77,7 +80,7 @@ button {
   margin: 10px auto;
   align-items: center;
   justify-content: space-between;
-  background-color: hsl(223, 64%, 98%);
+  background-color: white;
 }
 .datatable {
   font-family: 'Poppins', sans-serif !important;

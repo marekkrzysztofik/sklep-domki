@@ -58,10 +58,6 @@
       <Column header="Waluta"
         ><template #body> {{ isEuro ? '€' : 'zł' }} </template></Column
       >
-      <Column field="quantity" header="Ilość" sortable
-        ><template #editor="{ data, field }">
-          <InputText v-model="data[field]" class="width-70" /> </template
-      ></Column>
       <Column :rowEditor="true" header="Edytuj" />
       <Column header="Usuń">
         <template #body="event">
@@ -116,12 +112,31 @@ const handleSearch = () => {
 const allProducts = () => {
   searchUsed.value = false
 }
-const deleteProduct = (id) => {
-  store.products.splice(id, 1)
+const getBasketId = (data) => {
+  const basketId = store.basket.findIndex((item) => {
+    const { quantity, ...rest } = item
+    return JSON.stringify(rest) === JSON.stringify(data)
+  })
+  return basketId
+}
+const deleteProduct = (productId) => {
+  const basketId = getBasketId(store.products[productId])
+  if (basketId !== -1) {
+    store.basket.splice(basketId, 1)
+  }
+  store.products.splice(productId, 1)
   searchUsed.value = false
 }
 const addToBasket = (data) => {
-  store.basket.push(data)
+  const id = getBasketId(data)
+  console.log(id)
+  if (id === -1) {
+    store.basket.push({ ...data, quantity: 1 })
+  } else {
+    let quantity = parseInt(store.basket[id].quantity)
+    quantity += 1
+    store.basket[id].quantity = quantity
+  }
 }
 const confirmDialog = (data) => {
   confirm.require({
