@@ -1,4 +1,5 @@
 <template>
+  <Toast/>
   <h1 class="m-3">Dodaj produkt</h1>
   <div class="flex justify-content-center">
     <form @submit.prevent="submit">
@@ -53,7 +54,9 @@
 import { useRouter } from 'vue-router'
 import { reactive, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
+import { inject } from 'vue'
 
+const { showSuccess } = inject('key')
 const store = useStore()
 const router = useRouter()
 const productForm = reactive({
@@ -82,6 +85,9 @@ const isFormFilled = computed(() => {
 const submit = () => {
   productForm.priceEU = (productForm.price / 4.75).toFixed(2)
   store.products.push(productForm)
-  router.push('/')
+  showSuccess()
+  setTimeout(function () {
+    router.push('/')
+  }, 1000)
 }
 </script>
