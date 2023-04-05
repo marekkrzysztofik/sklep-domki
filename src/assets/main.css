@@ -6,6 +6,10 @@ body {
   background-color: #e4dccf;
   font-family: 'Poppins', sans-serif;
 }
+button {
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+}
 .menu-txt {
   font-size: 20px;
   font-weight: 900;
@@ -17,14 +21,35 @@ body {
 .bg-white {
   background-color: white;
 }
+.bg-dark-blue {
+  background-color: #19a7ce;
+}
 .br-radius-20 {
   border-radius: 20px;
+}
+.pad-10 {
+  padding: 10px;
 }
 .pad-20 {
   padding: 20px;
 }
+.small-txt {
+  font-size: 10px;
+}
+.side-pad-20 {
+  padding: 0 20px;
+}
+.icon-width {
+  font-size: 25px !important;
+}
+.width-530 {
+  width: 530px;
+}
 .m-left-20 {
   margin-left: 20px;
+}
+.m-left-40 {
+  margin-left: 40px;
 }
 .m-right-20 {
   margin-right: 20px !important;
@@ -38,6 +63,22 @@ body {
 .width-120 {
   width: 120px;
 }
+.product-img {
+  width: 30px;
+}
+.basket-img {
+  width: 70px;
+  height: 70px;
+}
+.quantity-box {
+  width: 120px;
+  height: 50px;
+  padding: 0;
+  margin: 10px auto;
+  align-items: center;
+  justify-content: space-between;
+  background-color: hsl(223, 64%, 98%);
+}
 .datatable {
   font-family: 'Poppins', sans-serif !important;
   font-size: 18px !important;
@@ -45,14 +86,16 @@ body {
   border-radius: 20px;
   overflow: hidden;
 }
+.bin-icon {
+  width: 50px;
+  height: 50px;
+}
 .btn-icon {
-  border: 1px solid #e0e0e0;
   background: none;
   width: 29px;
   height: 29px;
   border-radius: 4px;
   color: #6a727a;
-  cursor: pointer;
 }
 .btn-icon-success:hover {
   background: rgb(47, 214, 111);

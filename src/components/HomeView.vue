@@ -1,7 +1,7 @@
 <template>
   <ConfirmDialog />
   <Toast />
-  <div class="flex justify-content-center m-3">
+  <div class="flex justify-content-center align-items-center m-3">
     <Button
       v-if="!isEuro"
       @click="changeToEu"
@@ -25,6 +25,9 @@
     />
     <InputText v-model="store.searchTerm" type="text" placeholder="Szukaj" />
     <Button @click="handleSearch" icon="pi pi-search" />
+    <RouterLink class="no-decoration menu-txt" to="/basket"
+      ><i class="pi pi-shopping-bag m-3 icon-width" />KOSZYK</RouterLink
+    >
   </div>
   <div class="flex justify-content-center">
     <DataTable
@@ -36,6 +39,11 @@
       class="w-max datatable"
     >
       <template #header>Produkty </template>
+      <Column field="photo" header="Image">
+        <template #body="slotProps">
+          <img class="product-img" :src="slotProps.data.photo" />
+        </template>
+      </Column>
       <Column
         v-for="column in productColumns"
         :key="column.field"
@@ -50,23 +58,29 @@
       <Column header="Waluta"
         ><template #body> {{ isEuro ? '€' : 'zł' }} </template></Column
       >
-      <Column field="quantity" header="Ilość"
+      <Column field="quantity" header="Ilość" sortable
         ><template #editor="{ data, field }">
           <InputText v-model="data[field]" class="width-70" /> </template
       ></Column>
+      <Column :rowEditor="true" header="Edytuj" />
       <Column header="Usuń">
         <template #body="event">
           <div>
             <button
               @click="confirmDialog(event.data)"
-              class="btn-icon btn-icon-danger"
+              class="btn-icon btn-icon-danger m-1"
             >
               <i class="pi pi-ban"></i>
+            </button>
+            <button
+              @click="addToBasket(event.data)"
+              class="btn-icon btn-icon-success m-1"
+            >
+              <i class="pi pi-plus"></i>
             </button>
           </div>
         </template>
       </Column>
-      <Column :rowEditor="true" header="Edytuj" />
     </DataTable>
   </div>
 </template>
@@ -79,9 +93,9 @@ import { useToast } from 'primevue/usetoast'
 import { useStore } from '@/stores/store.js'
 
 const store = useStore()
-const searchUsed = ref(false)
 const toast = useToast()
 const confirm = useConfirm()
+const searchUsed = ref(false)
 const isEuro = ref(false)
 const editingRows = ref([])
 
@@ -105,6 +119,9 @@ const allProducts = () => {
 const deleteProduct = (id) => {
   store.products.splice(id, 1)
   searchUsed.value = false
+}
+const addToBasket = (data) => {
+  store.basket.push(data)
 }
 const confirmDialog = (data) => {
   confirm.require({

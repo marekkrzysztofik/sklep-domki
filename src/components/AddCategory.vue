@@ -85,4 +85,3 @@ const submitAnimal = (event) => {
   store.animals.push(animalName)
 }
 </script>
-
