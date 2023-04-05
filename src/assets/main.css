@@ -6,7 +6,7 @@ body {
   background-color: #e4dccf;
   font-family: 'Poppins', sans-serif;
 }
-button  {
+button {
   cursor: pointer;
   border: none;
 }
@@ -111,4 +111,12 @@ button  {
 .p-button {
   background-color: #19a7ce !important;
   color: #000000 !important;
+}
+@media only screen and (max-width: 600px) {
+  .flex {
+    flex-direction: column;
+  }
+  .m {
+    margin: 10px !important;
+  }
 }

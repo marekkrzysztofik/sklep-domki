@@ -5,21 +5,21 @@
     <Button
       v-if="!isEuro"
       @click="changeToEu"
-      class="m-right-20"
+      class="m-right-20 m"
       label="Zmień na €"
       icon="pi pi-calculator"
     />
     <Button
       v-if="isEuro"
       @click="changeToPln"
-      class="m-right-20"
+      class="m-right-20 m"
       label="Zmień na PLN"
       icon="pi pi-calculator"
     />
     <Button
       v-if="searchUsed"
       @click="allProducts"
-      class="m-right-20"
+      class="m-right-20 m"
       label="Powrót"
       icon="pi pi-chevron-left"
     />
@@ -30,12 +30,19 @@
     >
   </div>
   <div class="flex justify-content-center">
+    <RouterLink
+      v-if="store.products.length === 0"
+      class="no-decoration menu-txt m-3"
+      to="/add-product"
+      ><h1>Dodaj nowy produkt !</h1></RouterLink
+    >
     <DataTable
+      v-if="store.products.length > 0"
       :value="searchUsed ? store.filteredProducts : store.products"
       editMode="row"
       v-model:editingRows="editingRows"
       @row-edit-save="onRowEditSave"
-      responsiveLayout="scroll"
+      responsiveLayout="stack"
       class="w-max datatable"
     >
       <template #header>Produkty </template>
@@ -59,7 +66,7 @@
         ><template #body> {{ isEuro ? '€' : 'zł' }} </template></Column
       >
       <Column :rowEditor="true" header="Edytuj" />
-      <Column header="Usuń">
+      <Column>
         <template #body="event">
           <div>
             <button
@@ -72,7 +79,7 @@
               @click="addToBasket(event.data)"
               class="btn-icon btn-icon-success m-1"
             >
-              <i class="pi pi-plus"></i>
+              <i class="pi pi-shopping-bag"></i>
             </button>
           </div>
         </template>
@@ -87,7 +94,9 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from '@/stores/store.js'
+import { inject } from 'vue'
 
+const { showSuccess } = inject('key')
 const store = useStore()
 const toast = useToast()
 const confirm = useConfirm()
@@ -137,6 +146,7 @@ const addToBasket = (data) => {
     quantity += 1
     store.basket[id].quantity = quantity
   }
+  showSuccess()
 }
 const confirmDialog = (data) => {
   confirm.require({
