@@ -46,7 +46,7 @@
       class="w-max datatable"
     >
       <template #header>Produkty </template>
-      <Column field="photo" header="Image">
+      <Column field="photo" header="Zdjęcie">
         <template #body="slotProps">
           <img class="product-img" :src="slotProps.data.photo" />
         </template>
