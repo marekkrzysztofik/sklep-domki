@@ -25,14 +25,16 @@ export const useStore = defineStore('store', {
     pricesSum() {
       const prices = []
       this.basket.forEach((product) => {
-        prices.push(parseInt(product.price) * product.quantity)
+        prices.push(parseInt(product.price) * parseInt(product.quantity))
       })
       return prices.reduce((a, b) => a + b)
     },
     pricesEuSum() {
       const prices = []
       this.basket.forEach((product) => {
-        prices.push(parseInt(Math.ceil(product.priceEU)) * product.quantity)
+        prices.push(
+          parseInt(Math.ceil(product.priceEU)) * parseInt(product.quantity)
+        )
       })
       return prices.reduce((a, b) => a + b)
     },

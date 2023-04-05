@@ -1,5 +1,5 @@
 <template>
-  <Toast/>
+  <Toast />
   <h1 class="m-3">Dodaj produkt</h1>
   <div class="flex justify-content-center">
     <form @submit.prevent="submit">

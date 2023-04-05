@@ -96,7 +96,7 @@ import { useToast } from 'primevue/usetoast'
 import { useStore } from '@/stores/store.js'
 import { inject } from 'vue'
 
-const { showSuccess } = inject('key')
+const { showSuccess, showError } = inject('key')
 const store = useStore()
 const toast = useToast()
 const confirm = useConfirm()
@@ -107,6 +107,9 @@ const editingRows = ref([])
 const onRowEditSave = (event) => {
   let { newData, index } = event
   newData.priceEU = (newData.price / 4.75).toFixed(2)
+  let siema = { ...newData, quantity: 1 }
+  const id = getBasketId(store.products[index])
+  store.basket[id] = siema
   store.products[index] = newData
 }
 const changeToPln = () => {
@@ -130,15 +133,18 @@ const getBasketId = (data) => {
 }
 const deleteProduct = (productId) => {
   const basketId = getBasketId(store.products[productId])
-  if (basketId !== -1) {
-    store.basket.splice(basketId, 1)
-  }
   store.products.splice(productId, 1)
   searchUsed.value = false
+  deleteBasketProduct(basketId)
+}
+const deleteBasketProduct = (id) => {
+  if (id !== -1) {
+    store.basket.splice(id, 1)
+  } else showError()
 }
 const addToBasket = (data) => {
   const id = getBasketId(data)
-  console.log(id)
+  console.log(data, id)
   if (id === -1) {
     store.basket.push({ ...data, quantity: 1 })
   } else {

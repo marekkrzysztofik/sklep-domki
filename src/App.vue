@@ -29,7 +29,16 @@ const showSuccess = () => {
     life: 1000,
   })
 }
+const showError = () => {
+  toast.add({
+    severity: 'error',
+    summary: 'Error',
+    detail: 'Wystąpił błąd!',
+    life: 3000,
+  })
+}
 provide('key', {
   showSuccess,
+  showError,
 })
 </script>

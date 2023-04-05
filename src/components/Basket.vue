@@ -77,6 +77,7 @@ const store = useStore()
 const isEuro = ref(false)
 
 const changeToPln = () => {
+  console.log(store.basket)
   isEuro.value = false
 }
 const changeToEu = () => {
