@@ -6,6 +6,7 @@ export const useStore = defineStore('store', {
       products: [],
       type: ['na ziemi', 'na drzewie'],
       animals: ['pies'],
+      basket: [],
       searchTerm: '',
     }
   },
@@ -20,6 +21,20 @@ export const useStore = defineStore('store', {
             .includes(this.searchTerm.toLowerCase()) ||
           product.price.toString().includes(this.searchTerm)
       )
+    },
+    pricesSum() {
+      const prices = []
+      this.basket.forEach((product) => {
+        prices.push(parseInt(product.price))
+      })
+      return prices.reduce((a, b) => a + b)
+    },
+    pricesEuSum() {
+      const prices = []
+      this.basket.forEach((product) => {
+        prices.push(parseInt(Math.ceil(product.priceEU)))
+      })
+      return prices.reduce((a, b) => a + b)
     },
   },
   persist: {

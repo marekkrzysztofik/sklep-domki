@@ -31,12 +31,18 @@
             class="w-min m-3"
           />
         </div>
-        <div class="m-30-auto">
+        <div class="flex justify-content-center m-2">
+          <FileUpload
+            class="m-3"
+            mode="basic"
+            accept="image/*"
+            @select="uploadPhoto"
+          />
           <Button
             @click="submit"
             :disabled="!isFormFilled"
             label="Save"
-            class="width-120"
+            class="m-3 width-120"
           />
         </div>
       </div>
@@ -57,6 +63,14 @@ const productForm = reactive({
   price: '',
 })
 
+const uploadPhoto = (e) => {
+  const file = e.files[0]
+  const reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onloadend = () => {
+    productForm.photo = reader.result
+  }
+}
 const isFormFilled = computed(() => {
   for (const key in productForm) {
     if (!productForm[key]) {
