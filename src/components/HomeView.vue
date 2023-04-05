@@ -105,9 +105,9 @@ const isEuro = ref(false)
 const editingRows = ref([])
 
 const onRowEditSave = (event) => {
-  let { newData, index } = event
+  const { newData, index } = event
   newData.priceEU = (newData.price / 4.75).toFixed(2)
-  let siema = { ...newData, quantity: 1 }
+  const siema = { ...newData, quantity: 1 }
   const id = getBasketId(store.products[index])
   store.basket[id] = siema
   store.products[index] = newData
