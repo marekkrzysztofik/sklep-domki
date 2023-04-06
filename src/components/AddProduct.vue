@@ -66,14 +66,6 @@ const productForm = reactive({
   price: '',
 })
 
-const uploadPhoto = (e) => {
-  const file = e.files[0]
-  const reader = new FileReader()
-  reader.readAsDataURL(file)
-  reader.onloadend = () => {
-    productForm.photo = reader.result
-  }
-}
 const isFormFilled = computed(() => {
   for (const key in productForm) {
     if (!productForm[key]) {
@@ -82,6 +74,14 @@ const isFormFilled = computed(() => {
   }
   return true
 })
+const uploadPhoto = (e) => {
+  const file = e.files[0]
+  const reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onloadend = () => {
+    productForm.photo = reader.result
+  }
+}
 const submit = () => {
   productForm.priceEU = (productForm.price / 4.75).toFixed(2)
   store.products.push(productForm)

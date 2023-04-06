@@ -60,11 +60,13 @@
       v-if="store.basket.length > 0"
       class="flex flex-column m-3 pad-20 bg-white br-radius-20"
     >
-      <h1>Do zapłaty</h1>
+      <h1 class="m-1">Do zapłaty</h1>
       <div class="flex justify-content-end">
-        <p>{{ isEuro ? store.pricesEuSum + ' €' : store.pricesSum + ' zł' }}</p>
+        <p class="m-2">Razem: <h1 class="m-0">
+          {{ isEuro ? store.pricesEuSum + ' €' : store.pricesSum + ' zł' }}
+        </h1></p>
       </div>
-      <div class="bg-dark-blue pad-20 br-radius-20">
+      <div class="bg-dark-blue pad-20 br-radius-20 m-1">
         Wybierz dostawę i płatność
       </div>
     </div>
@@ -73,11 +75,11 @@
 <script setup>
 import { useStore } from '@/stores/store.js'
 import { ref } from 'vue'
+
 const store = useStore()
 const isEuro = ref(false)
 
 const changeToPln = () => {
-  console.log(store.basket)
   isEuro.value = false
 }
 const changeToEu = () => {
