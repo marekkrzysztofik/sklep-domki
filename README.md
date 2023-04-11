@@ -1,5 +1,12 @@
 # sklep-domki
 
+<p align="center">
+<img src="/images/home.png" width="800"> 
+</p>
+<p align="center">
+<img src="/images/basket.png" width="800"> 
+</p>
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
